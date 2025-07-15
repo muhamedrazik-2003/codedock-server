@@ -3,7 +3,8 @@ const projects = require("../Models/projectModel");
 exports.addProject = async (request, response) => {
   try {
     const userId = request.payload;
-    const { title, description, languages, githubrepository, livelink} = request.body;
+    const { title, description, languages, githubrepository, livelink } =
+      request.body;
     const image = request.file.filename;
     const existingProject = await projects.findOne({ githubrepository });
     if (existingProject) {
@@ -38,8 +39,8 @@ exports.allProjects = async (request, response) => {
 };
 exports.userProjects = async (request, response) => {
   try {
-    const userId = request.payload
-    const projectList = await projects.find({userId});
+    const userId = request.payload;
+    const projectList = await projects.find({ userId });
     response.status(200).json(projectList);
   } catch (error) {
     console.log(error);
@@ -70,8 +71,20 @@ exports.deleteProject = async (request, response) => {
 exports.updateProject = async (request, response) => {
   try {
     const { id } = request.params;
-    const { title, description, languages, githubrepository, livelink, image } = request.body;
-    const projectData = await projects.findByIdAndUpdate(id, { title, description, languages, githubrepository, livelink, image });
+    let { title, description, languages, githubrepository, livelink, image } = request.body;
+    if (request.file) {
+      image = request.file.filename;
+    }
+    // const image = request.file.filename;
+    // const { title, description, languages, githubrepository, livelink, image } = request.body;
+    const projectData = await projects.findByIdAndUpdate(id, {
+      title,
+      description,
+      languages,
+      githubrepository,
+      livelink,
+      image,
+    });
     response.status(200).json(projectData);
   } catch (error) {
     console.log(error);
