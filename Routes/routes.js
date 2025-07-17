@@ -9,6 +9,7 @@ const router = express.Router();
 // user
 router.post("/login",userController.UserLogin)
 router.post("/register",userController.UserRegister)
+router.put("/updateuser",jwtMiddleware,multerMiddleware.single('profile'), userController.updateProfile)
 // project
 router.post("/addproject",jwtMiddleware,multerMiddleware.single('image'), projectController.addProject)
 router.get("/allprojects",jwtMiddleware, projectController.allProjects)

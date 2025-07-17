@@ -1,13 +1,13 @@
 const users = require("../Models/userModel");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 
 exports.UserLogin = async (request, response) => {
   try {
     const { email, password } = request.body;
     const existingUser = await users.findOne({ email, password });
     if (existingUser) {
-      const token = jwt.sign({user:existingUser._id}, process.env.SECRETKEY);
-      response.status(200).json({token, username:existingUser.username});
+      const token = jwt.sign({ user: existingUser._id }, process.env.SECRETKEY);
+      response.status(200).json({ token, username: existingUser.username });
     } else {
       response.status(404).json("invalid Email or Password");
     }
@@ -37,5 +37,28 @@ exports.UserRegister = async (request, response) => {
   } catch (error) {
     console.log(error);
     response.status(401).json(error);
+  }
+};
+
+exports.updateProfile = async (req, res) => {
+  try {
+    const userId = req.payload;
+
+    if (req.file) {
+      var { username, github, linkedin } = req.body;
+      var profile = req.file.filename;
+    } else {
+      var { username, github, linkedin, profile } = req.body;
+    }
+
+    const response = await users.findByIdAndUpdate(userId, {
+      username,
+      github,
+      linkedin,
+      profile,
+    });
+    res.status(200).json({ message: "profile updated", response });
+  } catch (error) {
+    res.status(404).json({ message: "Error Occured", error: error.message });
   }
 };

@@ -75,8 +75,6 @@ exports.updateProject = async (request, response) => {
     if (request.file) {
       image = request.file.filename;
     }
-    // const image = request.file.filename;
-    // const { title, description, languages, githubrepository, livelink, image } = request.body;
     const projectData = await projects.findByIdAndUpdate(id, {
       title,
       description,

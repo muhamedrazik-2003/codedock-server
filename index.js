@@ -15,20 +15,3 @@ const PORT = 3000 || process.env.PORT; //env variable if PORT 3000 is not avilab
 server.listen(PORT, () => { //For making server run and wait for requests
     console.log('server running at :', PORT);
 });
-
-// server.get('/get/:id',(request,response) => {
-//     console.log(request.params)
-//     response.send("Get Request Hit!");
-// });
-// server.post('/post',(request,response) => {
-//     console.log(request.query)
-//     console.log(request.body)
-//     // response.send("Post Request Hit!");
-//     response.json({"msg":"ok"}).status(201)
-// });
-// server.put('/put',(request,response) => {
-//     response.send("put Request Hit")
-// });
-// server.delete('/delete',(request,response) => {
-//     response.send("Delete request Hit")
-// });
