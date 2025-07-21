@@ -12,7 +12,7 @@ router.post("/register",userController.UserRegister)
 router.put("/updateuser",jwtMiddleware,multerMiddleware.single('profile'), userController.updateProfile)
 // project
 router.post("/addproject",jwtMiddleware,multerMiddleware.single('image'), projectController.addProject)
-router.get("/allprojects",jwtMiddleware, projectController.allProjects)
+router.get("/allprojects", projectController.allProjects)
 router.get("/userprojects",jwtMiddleware, projectController.userProjects)
 router.get("/getproject/:id",jwtMiddleware, projectController.getProjectById)
 router.delete("/deleteproject/:id",jwtMiddleware, projectController.deleteProject)

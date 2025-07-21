@@ -7,7 +7,7 @@ exports.UserLogin = async (request, response) => {
     const existingUser = await users.findOne({ email, password });
     if (existingUser) {
       const token = jwt.sign({ user: existingUser._id }, process.env.SECRETKEY);
-      response.status(200).json({ token, username: existingUser.username });
+      response.status(200).json({ token, existingUser });
     } else {
       response.status(404).json("invalid Email or Password");
     }
